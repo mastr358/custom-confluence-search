@@ -47,13 +47,14 @@
     padding: 8px;
 }
 
-.luigi-ac-page-wrapper {
-    padding: 8px;
-}
-
 a.luigi-ac-item {
     width: 100%;
     color: #fff;
+    padding: 4px 8px;
+}
+
+a.luigi-ac-item > table {
+    margin: 0;
 }
 
 .luigi-ac-attrs {
@@ -105,8 +106,13 @@ a.luigi-ac-item {
 }
 #luigi-toggle-button {
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .luigi-hidden {
     display: none;
+}
+.luigi-ac-item.selected {
+    background-color: #555;
+    color: #fff;
 }

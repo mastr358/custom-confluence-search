@@ -87,6 +87,40 @@
         });
     }
 
+    function handleKeyboardNavigation(input) {
+        input.addEventListener("keydown", function (event) {
+            var luigiAcDropdown = document.querySelector(".luigi-ac");
+            if (!luigiAcDropdown) return;
+
+            var items = luigiAcDropdown.querySelectorAll(".luigi-ac-item");
+            if (items.length === 0) return;
+
+            var selectedIndex = Array.from(items).findIndex((item) =>
+                item.classList.contains("selected")
+            );
+
+            if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+                if (selectedIndex < items.length - 1) {
+                    if (selectedIndex >= 0)
+                        items[selectedIndex].classList.remove("selected");
+                    items[selectedIndex + 1].classList.add("selected");
+                }
+            } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+                if (selectedIndex > 0) {
+                    items[selectedIndex].classList.remove("selected");
+                    items[selectedIndex - 1].classList.add("selected");
+                }
+            } else if (event.key === "Enter") {
+                if (selectedIndex >= 0) {
+                    var link = items[selectedIndex].querySelector("a");
+                    if (link) {
+                        window.location.href = link.href;
+                    }
+                }
+            }
+        });
+    }
+
     function init() {
         var wrapper = createWrapper();
         var input = createInput();
@@ -103,6 +137,7 @@
         loadAutocompleteScript();
         hideModalOnClickOutside(wrapper);
         showModalOnClick(input);
+        handleKeyboardNavigation(input);
     }
 
     init();
