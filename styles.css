@@ -1,14 +1,16 @@
-#autocomplete-wrapper {
+#luigi-autocomplete-wrapper {
     position: fixed;
     top: 10px;
     right: 180px;
     z-index: 1000;
-    background-color: #000333;
+    background-color: transparent;
     padding: 1px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row-reverse;
 }
 
-#autocomplete-input {
+#luigi-autocomplete-input {
     width: 300px;
     padding: 8px;
     border: 1px solid #ccc;
@@ -25,7 +27,9 @@
     z-index: 100;
 }
 
-.luigi-ac-indent {display: none;}
+.luigi-ac-indent {
+    display: none;
+}
 
 .luigi-ac-enter,
 .luigi-ac-others {
@@ -80,4 +84,29 @@ a.luigi-ac-item {
     color: #bbb;
     margin-left: auto;
     text-align: right;
+}
+
+#luigi-autocomplete-wrapper {
+    display: flex;
+    align-items: center;
+}
+#luigi-autocomplete-input {
+    transition: width 0.2s ease;
+    width: 200px;
+    -webkit-transition: width 0.2s ease;
+    -moz-transition: width 0.2s ease;
+    -ms-transition: width 0.2s ease;
+    -o-transition: width 0.2s ease;
+}
+#luigi-autocomplete-input.collapsed {
+    width: 0;
+    padding: 0;
+    border: none;
+}
+#luigi-toggle-button {
+    margin-left: 10px;
+}
+
+.luigi-hidden {
+    display: none;
 }

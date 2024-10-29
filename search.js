@@ -1,17 +1,40 @@
 (function () {
     // Create a wrapper div for styling
     var wrapper = document.createElement("div");
-    wrapper.id = "autocomplete-wrapper";
+    wrapper.id = "luigi-autocomplete-wrapper";
 
     // Create and insert an input field inside the wrapper
     var input = document.createElement("input");
-    input.id = "autocomplete-input";
+    input.id = "luigi-autocomplete-input";
     input.type = "text";
     input.placeholder = "Search through Luigisbox...";
 
     // Append input to the wrapper, then wrapper to body
     wrapper.appendChild(input);
     document.body.insertBefore(wrapper, document.body.firstChild);
+
+    // Create a button to toggle the input field
+    var toggleButton = document.createElement("button");
+    toggleButton.id = "luigi-toggle-button";
+    toggleButton.innerHTML = ">>";
+
+    // Append the button to the wrapper
+    wrapper.appendChild(toggleButton);
+
+    // Add event listener to the button to toggle the input field
+    toggleButton.addEventListener("click", function () {
+        if (input.classList.contains("collapsed")) {
+            input.classList.remove("collapsed");
+            toggleButton.innerHTML = ">>";
+            document
+                .querySelector(".luigi-ac")
+                .classList.remove("luigi-hidden");
+        } else {
+            toggleButton.innerHTML = ">>";
+            input.classList.add("collapsed");
+            document.querySelector(".luigi-ac").classList.add("luigi-hidden");
+        }
+    });
 
     window.LBInitAutocomplete = function () {
         if (typeof AutoComplete !== "undefined") {
@@ -29,7 +52,7 @@
                         },
                     ],
                 },
-                "#autocomplete-input"
+                "#luigi-autocomplete-input"
             );
         } else {
             console.error(
@@ -51,10 +74,9 @@
     document.addEventListener("click", function (event) {
         var isClickInside = wrapper.contains(event.target);
         if (!isClickInside) {
-            input.value = ""; // Clear the input field
             var luigiAcDropdown = document.querySelector(".luigi-ac");
             if (luigiAcDropdown) {
-                luigiAcDropdown.style.display = "none";
+                luigiAcDropdown.classList.add("luigi-hidden");
             }
         }
     });
@@ -63,7 +85,7 @@
     input.addEventListener("click", function () {
         var luigiAcDropdown = document.querySelector(".luigi-ac");
         if (luigiAcDropdown) {
-            luigiAcDropdown.style.display = "block";
+            luigiAcDropdown.classList.remove("luigi-hidden");
         }
     });
 })();
