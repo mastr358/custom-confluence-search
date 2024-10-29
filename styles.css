@@ -25,6 +25,7 @@
     background-color: #444;
     color: #fff;
     z-index: 100;
+    max-width: 390px;
 }
 
 .luigi-ac-indent {
