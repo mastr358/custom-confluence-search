@@ -1,0 +1,81 @@
+#autocomplete-wrapper {
+    position: fixed;
+    top: 10px;
+    right: 180px;
+    z-index: 1000;
+    background-color: #333;
+    padding: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#autocomplete-input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #444;
+    color: #fff;
+}
+
+/* Luigi's Box Autocomplete Custom Styles */
+.luigi-ac {
+    position: absolute;
+    background-color: #444;
+    color: #fff;
+    z-index: 100;
+}
+
+.luigi-ac-enter,
+.luigi-ac-others {
+    display: none;
+}
+
+.luigi-ac-main {
+    position: relative;
+    z-index: 100;
+    background-color: #333;
+}
+
+.luigi-ac-footer {
+    background-color: #333;
+    padding: 8px;
+}
+
+.luigi-ac-page-wrapper {
+    padding: 8px;
+}
+
+a.luigi-ac-item {
+    width: 100%;
+    color: #fff;
+}
+
+.luigi-ac-attrs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.luigi-ac-attr--ancestors {
+    font-size: 12px;
+    font-style: italic;
+    color: #bbb;
+    max-width: 360px;
+}
+
+.luigi-ac-header {
+    display: none;
+}
+
+.luigi-ac-header-inner {
+    padding: 12px;
+}
+
+.luigi-ac-attr--last_edited {
+    font-size: 12px;
+    font-style: italic;
+    color: #bbb;
+    margin-left: auto;
+    text-align: right;
+}
