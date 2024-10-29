@@ -1,28 +1,26 @@
 (function () {
-    // Create a wrapper div for styling
-    var wrapper = document.createElement("div");
-    wrapper.id = "luigi-autocomplete-wrapper";
+    function createWrapper() {
+        var wrapper = document.createElement("div");
+        wrapper.id = "luigi-autocomplete-wrapper";
+        return wrapper;
+    }
 
-    // Create and insert an input field inside the wrapper
-    var input = document.createElement("input");
-    input.id = "luigi-autocomplete-input";
-    input.type = "text";
-    input.placeholder = "Search through Luigisbox...";
+    function createInput() {
+        var input = document.createElement("input");
+        input.id = "luigi-autocomplete-input";
+        input.type = "text";
+        input.placeholder = "Search through Luigisbox...";
+        return input;
+    }
 
-    // Append input to the wrapper, then wrapper to body
-    wrapper.appendChild(input);
-    document.body.insertBefore(wrapper, document.body.firstChild);
+    function createToggleButton() {
+        var toggleButton = document.createElement("button");
+        toggleButton.id = "luigi-toggle-button";
+        toggleButton.innerHTML = ">>";
+        return toggleButton;
+    }
 
-    // Create a button to toggle the input field
-    var toggleButton = document.createElement("button");
-    toggleButton.id = "luigi-toggle-button";
-    toggleButton.innerHTML = ">>";
-
-    // Append the button to the wrapper
-    wrapper.appendChild(toggleButton);
-
-    // Add event listener to the button to toggle the input field
-    toggleButton.addEventListener("click", function () {
+    function toggleInputField(input, toggleButton) {
         if (input.classList.contains("collapsed")) {
             input.classList.remove("collapsed");
             toggleButton.innerHTML = ">>";
@@ -30,13 +28,13 @@
                 .querySelector(".luigi-ac")
                 .classList.remove("luigi-hidden");
         } else {
-            toggleButton.innerHTML = ">>";
             input.classList.add("collapsed");
+            toggleButton.innerHTML = "<<";
             document.querySelector(".luigi-ac").classList.add("luigi-hidden");
         }
-    });
+    }
 
-    window.LBInitAutocomplete = function () {
+    function initializeAutocomplete() {
         if (typeof AutoComplete !== "undefined") {
             AutoComplete(
                 {
@@ -59,33 +57,53 @@
                 "LuigisBoxAutocomplete is not available after loading the script."
             );
         }
-    };
+    }
 
-    // Load Luigi's Box Autocomplete script
-    var script = document.createElement("script");
-    script.src = "https://cdn.luigisbox.com/autocomplete.js";
-    script.async = true;
-    script.onload = function () {
-        LBInitAutocomplete();
-    };
-    document.head.appendChild(script);
+    function loadAutocompleteScript() {
+        var script = document.createElement("script");
+        script.src = "https://cdn.luigisbox.com/autocomplete.js";
+        script.async = true;
+        script.onload = initializeAutocomplete;
+        document.head.appendChild(script);
+    }
 
-    // Hide modal on click outside of it
-    document.addEventListener("click", function (event) {
-        var isClickInside = wrapper.contains(event.target);
-        if (!isClickInside) {
+    function hideModalOnClickOutside(wrapper) {
+        document.addEventListener("click", function (event) {
+            if (!wrapper.contains(event.target)) {
+                var luigiAcDropdown = document.querySelector(".luigi-ac");
+                if (luigiAcDropdown) {
+                    luigiAcDropdown.classList.add("luigi-hidden");
+                }
+            }
+        });
+    }
+
+    function showModalOnClick(input) {
+        input.addEventListener("click", function () {
             var luigiAcDropdown = document.querySelector(".luigi-ac");
             if (luigiAcDropdown) {
-                luigiAcDropdown.classList.add("luigi-hidden");
+                luigiAcDropdown.classList.remove("luigi-hidden");
             }
-        }
-    });
+        });
+    }
 
-    // Show modal on click on the input
-    input.addEventListener("click", function () {
-        var luigiAcDropdown = document.querySelector(".luigi-ac");
-        if (luigiAcDropdown) {
-            luigiAcDropdown.classList.remove("luigi-hidden");
-        }
-    });
+    function init() {
+        var wrapper = createWrapper();
+        var input = createInput();
+        var toggleButton = createToggleButton();
+
+        wrapper.appendChild(input);
+        wrapper.appendChild(toggleButton);
+        document.body.insertBefore(wrapper, document.body.firstChild);
+
+        toggleButton.addEventListener("click", function () {
+            toggleInputField(input, toggleButton);
+        });
+
+        loadAutocompleteScript();
+        hideModalOnClickOutside(wrapper);
+        showModalOnClick(input);
+    }
+
+    init();
 })();
