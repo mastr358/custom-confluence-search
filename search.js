@@ -7,13 +7,12 @@
     var input = document.createElement("input");
     input.id = "autocomplete-input";
     input.type = "text";
-    input.placeholder = "Search...";
+    input.placeholder = "Search through Luigisbox...";
 
     // Append input to the wrapper, then wrapper to body
     wrapper.appendChild(input);
     document.body.insertBefore(wrapper, document.body.firstChild);
 
-    // Define LBInitAutocomplete function to initialize Luigi's Box Autocomplete
     window.LBInitAutocomplete = function () {
         if (typeof AutoComplete !== "undefined") {
             AutoComplete(
@@ -29,22 +28,6 @@
                             attributes: ["ancestors", "last_edited"],
                         },
                     ],
-                    RenderItem: function (item, options) {
-                        var element = document.createElement("div");
-                        element.className = "luigi-ac-item";
-                        element.innerHTML = `
-                            <div class="luigi-ac-attrs">
-                                <a href="${item.url}">${item.title}</a>
-                                <div class="luigi-ac-attr--ancestors">${item.ancestors.join(
-                                    " > "
-                                )}</div>
-                                <div class="luigi-ac-attr--last_edited">${
-                                    item.last_edited
-                                }</div>
-                            </div>
-                        `;
-                        return element;
-                    },
                 },
                 "#autocomplete-input"
             );
